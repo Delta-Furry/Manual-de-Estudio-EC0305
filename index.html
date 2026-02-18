@@ -15,15 +15,16 @@
                 extend: {
                     colors: {
                         uneve: {
-                            50: '#fff8e1',  // Crema muy claro
-                            100: '#ffecb3', // Durazno pastel
-                            200: '#ffe082', 
-                            300: '#ffd54f',
-                            500: '#ff9800', // Naranja brillante
-                            600: '#fb8c00', // Naranja institucional
-                            700: '#f57c00', 
-                            800: '#ef6c00', // Terracota suave
-                            900: '#e65100', // Terracota fuerte
+                            50: '#fdf2f4',  // Fondo muy pálido (casi blanco)
+                            100: '#fce7eb', // Fondo secundario
+                            200: '#f8d0d9', // Barra lateral claro
+                            300: '#f0aebd', // Barra lateral oscuro
+                            400: '#e57a94',
+                            500: '#bc3657', 
+                            600: '#9d2449', // Guinda Institucional (Color Principal)
+                            700: '#821c3b', 
+                            800: '#6b1833', // Vino
+                            900: '#56152b', // Vino Oscuro (Texto Títulos)
                         }
                     }
                 }
@@ -41,10 +42,10 @@
         .fade-in { animation: fadeIn 0.4s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Scrollbar personalizado dentro de la tarjeta si el contenido es muy largo */
+        /* Scrollbar personalizado - Color Vino */
         .card-content::-webkit-scrollbar { width: 6px; }
         .card-content::-webkit-scrollbar-track { background: transparent; }
-        .card-content::-webkit-scrollbar-thumb { background: #fb8c00; border-radius: 4px; }
+        .card-content::-webkit-scrollbar-thumb { background: #9d2449; border-radius: 4px; }
     </style>
 </head>
 <body class="bg-uneve-50 text-gray-800 h-screen overflow-hidden">
@@ -77,7 +78,29 @@
         const User = (props) => <IconWrapper {...props}><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></IconWrapper>;
         const HandshakeIcon = (props) => <IconWrapper {...props}><path d="m11 17 2 2a1 1 0 1 0 3-3" /><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 2.85-.92l1.02-2.37a2 2 0 0 0-1.85-2.8 2 2 0 0 0-1.7.94L13 7.8a4 4 0 0 1-1.17 1.62l-4.15 4.15a3 3 0 0 0 0 4.24" /><path d="M11 17a3 3 0 0 1-4.24 0l-3-3a1 1 0 0 1 0-1.42l2.3-2.3a2 2 0 0 1 2.82 0l3.89 3.89" /></IconWrapper>;
 
-        // --- App Principal ---
+        const ImageContainer = ({ src, alt }) => (
+            <div className="hidden lg:flex w-[300px] flex-shrink-0 items-center justify-center bg-gray-50 border-l border-uneve-200 p-4">
+                <img 
+                    src={src} 
+                    alt={alt} 
+                    className="w-full h-auto max-h-full object-contain rounded-lg shadow-sm"
+                    onError={(e) => {
+                        e.target.style.display='none'; 
+                        e.target.parentElement.innerHTML = `<div class="text-center p-4 border-2 border-dashed border-red-300 rounded bg-red-50 text-red-500 text-xs font-bold w-full">Falta imagen:<br>${src}</div>`
+                    }} 
+                />
+            </div>
+        );
+
+        const ContentWithImage = ({ children, imageSrc, imageAlt }) => (
+            <div className="flex flex-row h-full">
+                <div className="flex-1 overflow-y-auto p-6 md:p-10 leading-relaxed card-content">
+                    {children}
+                </div>
+                <ImageContainer src={imageSrc} alt={imageAlt} />
+            </div>
+        );
+
         const ManualEC0305 = () => {
             const [activePage, setActivePage] = useState(0);
             const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -122,498 +145,330 @@
                     title: "1. Introducción al Estándar",
                     icon: <BookOpen className="w-5 h-5" />,
                     content: (
-                        <div className="space-y-5 fade-in">
-                            <div className="bg-orange-50 border-l-4 border-uneve-600 p-5 rounded-r-lg">
-                                <h3 className="text-lg font-bold text-uneve-900">Objetivo del Estándar</h3>
-                                <p className="text-gray-700 mt-2 text-sm leading-relaxed">
-                                    Servir como referente para la evaluación y certificación de las personas que prestan servicios de atención a clientes. Abarca desde la preparación, la atención directa, hasta el manejo de situaciones difíciles.
-                                </p>
-                            </div>
-                            
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-4">
-                                <div className="bg-white p-5 rounded-xl shadow-sm border border-orange-100">
-                                    <h5 className="font-bold text-uneve-800 mb-3 border-b border-orange-100 pb-2">Elementos Fundamentales</h5>
-                                    <ul className="list-disc list-inside text-gray-600 space-y-1 text-sm">
-                                        <li>Preparación del servicio.</li>
-                                        <li>Atención al cliente (Necesidades).</li>
-                                        <li>Manejo de situaciones difíciles.</li>
-                                        <li>Cierre del servicio.</li>
-                                    </ul>
+                        <ContentWithImage imageSrc="tema1.jpg" imageAlt="Introducción">
+                            <div className="space-y-5 fade-in">
+                                <div className="bg-uneve-100 border-l-4 border-uneve-600 p-5 rounded-r-lg">
+                                    <h3 className="text-lg font-bold text-uneve-900">Objetivo del Estándar</h3>
+                                    <p className="text-gray-700 mt-2 text-sm leading-relaxed">
+                                        Servir como referente para la evaluación y certificación de las personas que prestan servicios de atención a clientes. Abarca desde la preparación, la atención directa, hasta el manejo de situaciones difíciles.
+                                    </p>
                                 </div>
-                                <div className="bg-white p-5 rounded-xl shadow-sm border border-orange-100">
-                                    <h5 className="font-bold text-uneve-800 mb-3 border-b border-orange-100 pb-2">Valores UNEVE</h5>
-                                    <ul className="list-disc list-inside text-gray-600 space-y-1 text-sm">
-                                        <li>Amabilidad.</li>
-                                        <li>Tolerancia.</li>
-                                        <li>Responsabilidad.</li>
-                                        <li>Limpieza y Orden.</li>
-                                    </ul>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-4">
+                                    <div className="bg-white p-5 rounded-xl shadow-sm border border-uneve-200">
+                                        <h5 className="font-bold text-uneve-800 mb-3 border-b border-uneve-200 pb-2">Elementos Fundamentales</h5>
+                                        <ul className="list-disc list-inside text-gray-600 space-y-1 text-sm">
+                                            <li>Preparación del servicio.</li>
+                                            <li>Atención al cliente.</li>
+                                            <li>Manejo de situaciones difíciles.</li>
+                                            <li>Cierre del servicio.</li>
+                                        </ul>
+                                    </div>
+                                    <div className="bg-white p-5 rounded-xl shadow-sm border border-uneve-200">
+                                        <h5 className="font-bold text-uneve-800 mb-3 border-b border-uneve-200 pb-2">Valores UNEVE</h5>
+                                        <ul className="list-disc list-inside text-gray-600 space-y-1 text-sm">
+                                            <li>Amabilidad.</li>
+                                            <li>Tolerancia.</li>
+                                            <li>Responsabilidad.</li>
+                                            <li>Limpieza y Orden.</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </ContentWithImage>
                     )
                 },
                 {
                     title: "2. Preparación del Área",
                     icon: <UserCheck className="w-5 h-5" />,
                     content: (
-                        <div className="space-y-6 fade-in">
-                            <p className="text-gray-600">El servicio de excelencia comienza antes de que llegue el cliente.</p>
-
-                            <div className="space-y-4">
-                                <div className="bg-white p-5 rounded-xl border-l-4 border-uneve-500 shadow-sm">
-                                    <h3 className="font-bold text-uneve-900 flex items-center gap-3">
-                                        <div className="bg-uneve-100 p-1.5 rounded-full"><User className="w-5 h-5 text-uneve-700" /></div>
-                                        Imagen Personal
-                                    </h3>
-                                    <ul className="space-y-2 mt-3 ml-2 text-sm">
-                                        <li className="flex items-start gap-3">
-                                            <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                                            <span className="text-gray-700"><strong>Vestimenta:</strong> Limpia, planchada y acorde al código institucional.</span>
-                                        </li>
-                                        <li className="flex items-start gap-3">
-                                            <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                                            <span className="text-gray-700"><strong>Aseo:</strong> Cabello peinado, manos limpias, uñas cortas.</span>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div className="bg-white p-5 rounded-xl border-l-4 border-uneve-500 shadow-sm">
-                                    <h3 className="font-bold text-uneve-900 flex items-center gap-3">
-                                        <div className="bg-uneve-100 p-1.5 rounded-full"><Monitor className="w-5 h-5 text-uneve-700" /></div>
-                                        Área de Trabajo
-                                    </h3>
-                                    <ul className="space-y-2 mt-3 ml-2 text-sm">
-                                        <li className="flex items-start gap-3">
-                                            <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                                            <span className="text-gray-700"><strong>Orden:</strong> Escritorio libre de comida o objetos personales.</span>
-                                        </li>
-                                        <li className="flex items-start gap-3">
-                                            <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                                            <span className="text-gray-700"><strong>Insumos:</strong> Verificar papelería y sistema antes de abrir.</span>
-                                        </li>
-                                    </ul>
+                        <ContentWithImage imageSrc="tema2.jpg" imageAlt="Preparación">
+                            <div className="space-y-6 fade-in">
+                                <p className="text-gray-600">El servicio de excelencia comienza antes de que llegue el cliente.</p>
+                                <div className="space-y-4">
+                                    <div className="bg-white p-5 rounded-xl border-l-4 border-uneve-500 shadow-sm">
+                                        <h3 className="font-bold text-uneve-900 flex items-center gap-3">
+                                            <div className="bg-uneve-100 p-1.5 rounded-full"><User className="w-5 h-5 text-uneve-700" /></div>
+                                            Imagen Personal
+                                        </h3>
+                                        <ul className="space-y-2 mt-3 ml-2 text-sm">
+                                            <li className="flex items-start gap-3"><CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" /><span className="text-gray-700"><strong>Vestimenta:</strong> Limpia, planchada y acorde al código institucional.</span></li>
+                                            <li className="flex items-start gap-3"><CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" /><span className="text-gray-700"><strong>Aseo:</strong> Cabello peinado, manos limpias, uñas cortas.</span></li>
+                                        </ul>
+                                    </div>
+                                    <div className="bg-white p-5 rounded-xl border-l-4 border-uneve-500 shadow-sm">
+                                        <h3 className="font-bold text-uneve-900 flex items-center gap-3">
+                                            <div className="bg-uneve-100 p-1.5 rounded-full"><Monitor className="w-5 h-5 text-uneve-700" /></div>
+                                            Área de Trabajo
+                                        </h3>
+                                        <ul className="space-y-2 mt-3 ml-2 text-sm">
+                                            <li className="flex items-start gap-3"><CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" /><span className="text-gray-700"><strong>Orden:</strong> Escritorio libre de comida o objetos personales.</span></li>
+                                            <li className="flex items-start gap-3"><CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" /><span className="text-gray-700"><strong>Insumos:</strong> Verificar papelería y sistema antes de abrir.</span></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </ContentWithImage>
                     )
                 },
                 {
                     title: "3. El Saludo (Protocolo)",
                     icon: <HandshakeIcon className="w-5 h-5" />,
                     content: (
-                        <div className="space-y-6 fade-in">
-                            <div>
-                                <h3 className="text-xl font-bold text-gray-800 mb-1">El Primer Contacto</h3>
-                                <p className="text-gray-600 text-sm">El estándar EC0305 exige un protocolo específico para generar confianza.</p>
+                        <ContentWithImage imageSrc="tema3.jpg" imageAlt="Saludo">
+                            <div className="space-y-6 fade-in">
+                                <div><h3 className="text-xl font-bold text-gray-800 mb-1">El Primer Contacto</h3><p className="text-gray-600 text-sm">El estándar EC0305 exige un protocolo específico para generar confianza.</p></div>
+                                <div className="bg-gradient-to-br from-white to-uneve-100 p-6 rounded-2xl shadow-md border border-uneve-200">
+                                    <h4 className="font-bold text-uneve-900 mb-4">Pasos Obligatorios del Saludo</h4>
+                                    <ol className="space-y-3 text-sm">
+                                        {[
+                                            { title: "Contacto Visual", desc: "Mirar a los ojos denota atención." },
+                                            { title: "Sonrisa", desc: "Expresión facial amable o tono de voz cálido." },
+                                            { title: "Saludo Verbal", desc: "'Buenos días' o 'Buenas tardes'." },
+                                            { title: "Presentación", desc: "Mencionar tu nombre y cargo." },
+                                            { title: "Ofrecimiento", desc: "'¿En qué puedo servirle hoy?'" }
+                                        ].map((step, idx) => (
+                                            <li key={idx} className="flex gap-3 items-start">
+                                                <div className="flex-shrink-0 w-6 h-6 bg-uneve-600 text-white rounded-full flex items-center justify-center font-bold text-xs">{idx + 1}</div>
+                                                <div><span className="font-bold text-gray-900">{step.title}:</span><span className="text-gray-600 ml-1">{step.desc}</span></div>
+                                            </li>
+                                        ))}
+                                    </ol>
+                                </div>
+                                <div className="text-center text-xs text-gray-500 italic bg-white p-3 rounded-lg border border-uneve-200">"La amabilidad no debe sonar robotizada, sino genuina."</div>
                             </div>
-
-                            <div className="bg-gradient-to-br from-white to-orange-50 p-6 rounded-2xl shadow-md border border-orange-100">
-                                <h4 className="font-bold text-uneve-900 mb-4">Pasos Obligatorios del Saludo</h4>
-                                <ol className="space-y-3 text-sm">
-                                    {[
-                                        { title: "Contacto Visual", desc: "Mirar a los ojos denota atención." },
-                                        { title: "Sonrisa", desc: "Expresión facial amable o tono de voz cálido." },
-                                        { title: "Saludo Verbal", desc: "'Buenos días' o 'Buenas tardes'." },
-                                        { title: "Presentación", desc: "Mencionar tu nombre y cargo." },
-                                        { title: "Ofrecimiento", desc: "'¿En qué puedo servirle hoy?'" }
-                                    ].map((step, idx) => (
-                                        <li key={idx} className="flex gap-3 items-start">
-                                            <div className="flex-shrink-0 w-6 h-6 bg-uneve-600 text-white rounded-full flex items-center justify-center font-bold text-xs">
-                                                {idx + 1}
-                                            </div>
-                                            <div>
-                                                <span className="font-bold text-gray-900">{step.title}:</span>
-                                                <span className="text-gray-600 ml-1">{step.desc}</span>
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ol>
-                            </div>
-                            
-                            <div className="text-center text-xs text-gray-500 italic bg-white p-3 rounded-lg border border-gray-100">
-                                "La amabilidad no debe sonar robotizada, sino genuina."
-                            </div>
-                        </div>
+                        </ContentWithImage>
                     )
                 },
                 {
                     title: "4. Canal Presencial",
                     icon: <User className="w-5 h-5" />,
                     content: (
-                        <div className="space-y-6 fade-in">
-                            <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-                                <h3 className="text-xl font-bold text-gray-800">Canal Presencial (Cara a Cara)</h3>
-                                <span className="bg-uneve-100 text-uneve-800 px-3 py-1 rounded-full text-xs font-bold border border-uneve-200">Hoja 4</span>
-                            </div>
-                            
-                            <p className="text-gray-600 text-sm">En este canal, el lenguaje corporal representa el 55% del impacto.</p>
-
-                            <div className="grid gap-5">
-                                <div className="bg-white p-5 rounded-xl shadow-sm border-t-4 border-green-600">
-                                    <h4 className="font-bold text-lg mb-2 text-green-800 flex items-center gap-2">
-                                        <User className="w-5 h-5" /> Kinésica (Cuerpo)
-                                    </h4>
-                                    <ul className="space-y-2 text-gray-700 text-sm">
-                                        <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5"></div><span><strong>Postura:</strong> Erguida pero relajada. ¡Nunca cruces los brazos!</span></li>
-                                        <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5"></div><span><strong>Gestos:</strong> Asentir con la cabeza para validar escucha.</span></li>
-                                    </ul>
-                                </div>
-
-                                <div className="bg-white p-5 rounded-xl shadow-sm border-t-4 border-green-600">
-                                    <h4 className="font-bold text-lg mb-2 text-green-800 flex items-center gap-2">
-                                        <Monitor className="w-5 h-5" /> Proxémica (Espacio)
-                                    </h4>
-                                    <p className="text-gray-700 text-sm">Respetar el espacio personal del cliente (aprox. 1.2 metros). Ni muy cerca (invasivo) ni muy lejos (indiferente).</p>
+                        <ContentWithImage imageSrc="tema4.jpg" imageAlt="Presencial">
+                            <div className="space-y-6 fade-in">
+                                <div className="flex justify-between items-center border-b border-gray-200 pb-3"><h3 className="text-xl font-bold text-gray-800">Canal Presencial (Cara a Cara)</h3><span className="bg-uneve-100 text-uneve-800 px-3 py-1 rounded-full text-xs font-bold border border-uneve-200">Hoja 4</span></div>
+                                <p className="text-gray-600 text-sm">En este canal, el lenguaje corporal representa el 55% del impacto.</p>
+                                <div className="grid gap-5">
+                                    <div className="bg-white p-5 rounded-xl shadow-sm border-t-4 border-green-600">
+                                        <h4 className="font-bold text-lg mb-2 text-green-800 flex items-center gap-2"><User className="w-5 h-5" /> Kinésica (Cuerpo)</h4>
+                                        <ul className="space-y-2 text-gray-700 text-sm">
+                                            <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5"></div><span><strong>Postura:</strong> Erguida pero relajada. ¡Nunca cruces los brazos!</span></li>
+                                            <li className="flex gap-2"><div className="w-1.5 h-1.5 rounded-full bg-green-500 mt-1.5"></div><span><strong>Gestos:</strong> Asentir con la cabeza para validar escucha.</span></li>
+                                        </ul>
+                                    </div>
+                                    <div className="bg-white p-5 rounded-xl shadow-sm border-t-4 border-green-600">
+                                        <h4 className="font-bold text-lg mb-2 text-green-800 flex items-center gap-2"><Monitor className="w-5 h-5" /> Proxémica (Espacio)</h4>
+                                        <p className="text-gray-700 text-sm">Respetar el espacio personal del cliente (aprox. 1.2 metros). Ni muy cerca (invasivo) ni muy lejos (indiferente).</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </ContentWithImage>
                     )
                 },
                 {
                     title: "5. Canal Telefónico",
                     icon: <Phone className="w-5 h-5" />,
                     content: (
-                        <div className="space-y-6 fade-in">
-                            <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-                                <h3 className="text-xl font-bold text-gray-800">Canal Telefónico</h3>
-                                <span className="bg-uneve-100 text-uneve-800 px-3 py-1 rounded-full text-xs font-bold border border-uneve-200">Hoja 5</span>
-                            </div>
-
-                            <p className="text-gray-600 text-sm">Aquí la voz es tu única herramienta. La "sonrisa telefónica" se escucha.</p>
-                            
-                            <div className="bg-white text-gray-800 p-6 rounded-2xl shadow-lg border-t-4 border-uneve-600 relative overflow-hidden">
-                                <div className="absolute top-0 right-0 -mt-4 -mr-4 w-20 h-20 bg-uneve-100 rounded-full opacity-50"></div>
-                                
-                                <h4 className="text-xl font-bold text-uneve-700 mb-5 flex items-center gap-2">
-                                    <Phone className="w-5 h-5" /> Reglas de Oro
-                                </h4>
-                                
-                                <div className="space-y-5">
-                                    <div className="group">
-                                        <h5 className="font-bold text-gray-900 group-hover:text-uneve-600 transition-colors">1. Velocidad de Respuesta</h5>
-                                        <p className="text-gray-600 text-sm mt-1 pl-3 border-l-2 border-uneve-300">Contestar antes del tercer timbrazo.</p>
-                                    </div>
-                                    <div className="group">
-                                        <h5 className="font-bold text-gray-900 group-hover:text-uneve-600 transition-colors">2. Tono y Volumen</h5>
-                                        <p className="text-gray-600 text-sm mt-1 pl-3 border-l-2 border-uneve-300">Voz clara, pausada y modulada. Evita hablar muy rápido.</p>
-                                    </div>
-                                    <div className="group">
-                                        <h5 className="font-bold text-gray-900 group-hover:text-uneve-600 transition-colors">3. Tiempo de Espera (Hold)</h5>
-                                        <ul className="list-disc list-inside text-gray-600 text-xs mt-1 pl-3 space-y-1">
-                                            <li>Pedir permiso siempre.</li>
-                                            <li>Explicar la razón ("Consultaré su saldo...").</li>
-                                            <li>Retomar cada 30-40 seg.</li>
-                                        </ul>
+                        <ContentWithImage imageSrc="tema5.jpg" imageAlt="Telefónico">
+                            <div className="space-y-6 fade-in">
+                                <div className="flex justify-between items-center border-b border-gray-200 pb-3"><h3 className="text-xl font-bold text-gray-800">Canal Telefónico</h3><span className="bg-uneve-100 text-uneve-800 px-3 py-1 rounded-full text-xs font-bold border border-uneve-200">Hoja 5</span></div>
+                                <p className="text-gray-600 text-sm">Aquí la voz es tu única herramienta. La "sonrisa telefónica" se escucha.</p>
+                                <div className="bg-white text-gray-800 p-6 rounded-2xl shadow-lg border-t-4 border-uneve-600 relative overflow-hidden">
+                                    <div className="absolute top-0 right-0 -mt-4 -mr-4 w-20 h-20 bg-uneve-100 rounded-full opacity-50"></div>
+                                    <h4 className="text-xl font-bold text-uneve-700 mb-5 flex items-center gap-2"><Phone className="w-5 h-5" /> Reglas de Oro</h4>
+                                    <div className="space-y-5">
+                                        <div className="group"><h5 className="font-bold text-gray-900 group-hover:text-uneve-600 transition-colors">1. Velocidad de Respuesta</h5><p className="text-gray-600 text-sm mt-1 pl-3 border-l-2 border-uneve-300">Contestar antes del tercer timbrazo.</p></div>
+                                        <div className="group"><h5 className="font-bold text-gray-900 group-hover:text-uneve-600 transition-colors">2. Tono y Volumen</h5><p className="text-gray-600 text-sm mt-1 pl-3 border-l-2 border-uneve-300">Voz clara, pausada y modulada.</p></div>
+                                        <div className="group"><h5 className="font-bold text-gray-900 group-hover:text-uneve-600 transition-colors">3. Tiempo de Espera (Hold)</h5><ul className="list-disc list-inside text-gray-600 text-xs mt-1 pl-3 space-y-1"><li>Pedir permiso siempre.</li><li>Explicar la razón.</li><li>Retomar cada 30-40 seg.</li></ul></div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </ContentWithImage>
                     )
                 },
                 {
                     title: "6. Canal Digital",
                     icon: <Monitor className="w-5 h-5" />,
                     content: (
-                        <div className="space-y-6 fade-in">
-                            <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-                                <h3 className="text-xl font-bold text-gray-800">Canal Digital / Escrito</h3>
-                                <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-xs font-bold border border-purple-200">Hoja 6</span>
-                            </div>
-
-                            <p className="text-gray-600 text-sm">El reto es la falta de tono emocional. La ortografía es tu imagen.</p>
-
-                            <div className="grid md:grid-cols-2 gap-5">
-                                <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                                    <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mb-3 text-purple-600 font-bold text-lg">A</div>
-                                    <h4 className="font-bold text-gray-900 mb-2">Ortografía y Redacción</h4>
-                                    <p className="text-xs text-gray-500 mb-2">Es la "higiene" del canal digital.</p>
-                                    <ul className="text-xs text-gray-600 list-disc list-inside space-y-1">
-                                        <li>NO ESCRIBIR TODO EN MAYÚSCULAS.</li>
-                                        <li>Sintaxis clara y párrafos breves.</li>
-                                    </ul>
-                                </div>
-
-                                <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                                    <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mb-3 text-purple-600 font-bold text-lg">B</div>
-                                    <h4 className="font-bold text-gray-900 mb-2">Netiqueta</h4>
-                                    <ul className="text-xs text-gray-600 list-disc list-inside space-y-2 mt-4">
-                                        <li>Saludo y despedida formal.</li>
-                                        <li>Personalización (Usar nombre).</li>
-                                        <li>Rapidez (Chat = Inmediato).</li>
-                                    </ul>
+                        <ContentWithImage imageSrc="tema6.jpg" imageAlt="Digital">
+                            <div className="space-y-6 fade-in">
+                                <div className="flex justify-between items-center border-b border-gray-200 pb-3"><h3 className="text-xl font-bold text-gray-800">Canal Digital / Escrito</h3><span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-xs font-bold border border-purple-200">Hoja 6</span></div>
+                                <p className="text-gray-600 text-sm">El reto es la falta de tono emocional. La ortografía es tu imagen.</p>
+                                <div className="grid md:grid-cols-2 gap-5">
+                                    <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                        <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mb-3 text-purple-600 font-bold text-lg">A</div>
+                                        <h4 className="font-bold text-gray-900 mb-2">Ortografía y Redacción</h4>
+                                        <p className="text-xs text-gray-500 mb-2">Es la "higiene" del canal digital.</p>
+                                        <ul className="text-xs text-gray-600 list-disc list-inside space-y-1"><li>NO ESCRIBIR TODO EN MAYÚSCULAS.</li><li>Sintaxis clara y párrafos breves.</li></ul>
+                                    </div>
+                                    <div className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                        <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mb-3 text-purple-600 font-bold text-lg">B</div>
+                                        <h4 className="font-bold text-gray-900 mb-2">Netiqueta</h4>
+                                        <ul className="text-xs text-gray-600 list-disc list-inside space-y-2 mt-4"><li>Saludo y despedida formal.</li><li>Personalización (Usar nombre).</li><li>Rapidez (Chat = Inmediato).</li></ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </ContentWithImage>
                     )
                 },
                 {
                     title: "7. Detección de Necesidades",
                     icon: <Ear className="w-5 h-5" />,
                     content: (
-                        <div className="space-y-6 fade-in">
-                            <h3 className="text-xl font-bold text-gray-800">Técnica de Interrogatorio</h3>
-                            
-                            <div className="bg-amber-50 p-5 rounded-xl border border-amber-200 flex gap-3 items-start">
-                                <div className="bg-amber-100 p-2 rounded-full flex-shrink-0"><Ear className="w-5 h-5 text-amber-700" /></div>
-                                <div>
-                                    <h4 className="font-bold text-amber-900 text-lg">Escucha Activa y Parafraseo</h4>
-                                    <p className="text-amber-800 mt-1 text-sm">Es vital confirmar lo entendido. <br/><span className="italic font-semibold">"Si le entendí bien, lo que usted necesita es..."</span></p>
+                        <ContentWithImage imageSrc="tema7.jpg" imageAlt="Necesidades">
+                            <div className="space-y-6 fade-in">
+                                <h3 className="text-xl font-bold text-gray-800">Técnica de Interrogatorio</h3>
+                                <div className="bg-amber-50 p-5 rounded-xl border border-amber-200 flex gap-3 items-start">
+                                    <div className="bg-amber-100 p-2 rounded-full flex-shrink-0"><Ear className="w-5 h-5 text-amber-700" /></div>
+                                    <div><h4 className="font-bold text-amber-900 text-lg">Escucha Activa y Parafraseo</h4><p className="text-amber-800 mt-1 text-sm">Es vital confirmar lo entendido. <br/><span className="italic font-semibold">"Si le entendí bien, lo que usted necesita es..."</span></p></div>
+                                </div>
+                                <div className="grid grid-cols-2 gap-5">
+                                    <div className="bg-white p-5 border border-gray-200 rounded-xl shadow-sm hover:border-orange-300 transition-colors"><h5 className="font-bold text-gray-800 mb-1">Preguntas Abiertas</h5><p className="text-xs text-gray-500 uppercase tracking-wide font-bold mb-2">Para indagar</p><p className="text-xs text-gray-600 italic">"¿Qué tipo de falla presenta su equipo exactamente?"</p></div>
+                                    <div className="bg-white p-5 border border-gray-200 rounded-xl shadow-sm hover:border-orange-300 transition-colors"><h5 className="font-bold text-gray-800 mb-1">Preguntas Cerradas</h5><p className="text-xs text-gray-500 uppercase tracking-wide font-bold mb-2">Para confirmar</p><p className="text-xs text-gray-600 italic">"¿El equipo es modelo 2023?"</p></div>
                                 </div>
                             </div>
-
-                            <div className="grid grid-cols-2 gap-5">
-                                <div className="bg-white p-5 border border-gray-200 rounded-xl shadow-sm hover:border-orange-300 transition-colors">
-                                    <h5 className="font-bold text-gray-800 mb-1">Preguntas Abiertas</h5>
-                                    <p className="text-xs text-gray-500 uppercase tracking-wide font-bold mb-2">Para indagar</p>
-                                    <p className="text-xs text-gray-600 italic">"¿Qué tipo de falla presenta su equipo exactamente?"</p>
-                                </div>
-                                <div className="bg-white p-5 border border-gray-200 rounded-xl shadow-sm hover:border-orange-300 transition-colors">
-                                    <h5 className="font-bold text-gray-800 mb-1">Preguntas Cerradas</h5>
-                                    <p className="text-xs text-gray-500 uppercase tracking-wide font-bold mb-2">Para confirmar</p>
-                                    <p className="text-xs text-gray-600 italic">"¿El equipo es modelo 2023?"</p>
-                                </div>
-                            </div>
-                        </div>
+                        </ContentWithImage>
                     )
                 },
                 {
                     title: "8. Tipos de Interacción",
                     icon: <MessageCircle className="w-5 h-5" />,
                     content: (
-                        <div className="space-y-6 fade-in">
-                            <h3 className="text-xl font-bold text-gray-800 mb-4">Clasificación de Interacciones</h3>
-                            <div className="space-y-3">
-                                <div className="flex bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
-                                    <div className="w-1.5 bg-orange-400"></div>
-                                    <div className="p-4">
-                                        <h4 className="font-bold text-gray-900 text-sm">Transaccional</h4>
-                                        <p className="text-xs text-gray-600 mt-1">Intercambio simple, rutinario y rápido. <br/><em>Ej: Pagar luz en ventanilla.</em></p>
+                        <ContentWithImage imageSrc="tema8.jpg" imageAlt="Interacción">
+                            <div className="space-y-6 fade-in">
+                                <h3 className="text-xl font-bold text-gray-800 mb-4">Clasificación de Interacciones</h3>
+                                <div className="space-y-3">
+                                    <div className="flex bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+                                        <div className="w-1.5 bg-orange-400"></div>
+                                        <div className="p-4"><h4 className="font-bold text-gray-900 text-sm">Transaccional</h4><p className="text-xs text-gray-600 mt-1">Intercambio simple, rutinario y rápido. <br/><em>Ej: Pagar luz en ventanilla.</em></p></div>
                                     </div>
-                                </div>
-                                <div className="flex bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
-                                    <div className="w-1.5 bg-orange-600"></div>
-                                    <div className="p-4">
-                                        <h4 className="font-bold text-gray-900 text-sm">Consultiva</h4>
-                                        <p className="text-xs text-gray-600 mt-1">Requiere análisis, diagnóstico y asesoría experta. <br/><em>Ej: Elegir un seguro de vida.</em></p>
+                                    <div className="flex bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+                                        <div className="w-1.5 bg-orange-600"></div>
+                                        <div className="p-4"><h4 className="font-bold text-gray-900 text-sm">Consultiva</h4><p className="text-xs text-gray-600 mt-1">Requiere análisis, diagnóstico y asesoría experta. <br/><em>Ej: Elegir un seguro de vida.</em></p></div>
                                     </div>
-                                </div>
-                                <div className="flex bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
-                                    <div className="w-1.5 bg-orange-800"></div>
-                                    <div className="p-4">
-                                        <h4 className="font-bold text-gray-900 text-sm">Relacional / Afectiva</h4>
-                                        <p className="text-xs text-gray-600 mt-1">Enfocada en construir lealtad a largo plazo y emociones. <br/><em>Ej: Hotel de lujo recordando tus gustos.</em></p>
+                                    <div className="flex bg-white rounded-lg overflow-hidden shadow-sm border border-gray-100">
+                                        <div className="w-1.5 bg-orange-800"></div>
+                                        <div className="p-4"><h4 className="font-bold text-gray-900 text-sm">Relacional / Afectiva</h4><p className="text-xs text-gray-600 mt-1">Enfocada en construir lealtad a largo plazo y emociones. <br/><em>Ej: Hotel de lujo recordando tus gustos.</em></p></div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </ContentWithImage>
                     )
                 },
                 {
                     title: "9. Gestión de Información",
                     icon: <ClipboardList className="w-5 h-5" />,
                     content: (
-                        <div className="space-y-6 fade-in">
-                            <h3 className="text-xl font-bold text-gray-800">Calidad de la Información</h3>
-                            <p className="text-gray-600 text-sm">Al dar la solución, la información debe cumplir 3 criterios:</p>
-                            
-                            <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
-                                <table className="w-full text-sm text-left">
-                                    <thead className="bg-uneve-100 text-uneve-900 uppercase text-xs">
-                                        <tr><th className="px-5 py-3">Criterio</th><th className="px-5 py-3">Descripción</th></tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-gray-100">
-                                        <tr className="hover:bg-gray-50"><td className="px-5 py-3 font-bold text-gray-800">Veracidad</td><td className="px-5 py-3 text-gray-600 text-xs">Información real y actualizada.</td></tr>
-                                        <tr className="hover:bg-gray-50"><td className="px-5 py-3 font-bold text-gray-800">Claridad</td><td className="px-5 py-3 text-gray-600 text-xs">Sin tecnicismos (jergas) confusos.</td></tr>
-                                        <tr className="hover:bg-gray-50"><td className="px-5 py-3 font-bold text-gray-800">Completitud</td><td className="px-5 py-3 text-gray-600 text-xs">Responder a TODAS las dudas.</td></tr>
-                                    </tbody>
-                                </table>
+                        <ContentWithImage imageSrc="tema9.jpg" imageAlt="Información">
+                            <div className="space-y-6 fade-in">
+                                <h3 className="text-xl font-bold text-gray-800">Calidad de la Información</h3>
+                                <p className="text-gray-600 text-sm">Al dar la solución, la información debe cumplir 3 criterios:</p>
+                                <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
+                                    <table className="w-full text-sm text-left">
+                                        <thead className="bg-uneve-100 text-uneve-900 uppercase text-xs"><tr><th className="px-5 py-3">Criterio</th><th className="px-5 py-3">Descripción</th></tr></thead>
+                                        <tbody className="divide-y divide-gray-100">
+                                            <tr className="hover:bg-gray-50"><td className="px-5 py-3 font-bold text-gray-800">Veracidad</td><td className="px-5 py-3 text-gray-600 text-xs">Información real y actualizada.</td></tr>
+                                            <tr className="hover:bg-gray-50"><td className="px-5 py-3 font-bold text-gray-800">Claridad</td><td className="px-5 py-3 text-gray-600 text-xs">Sin tecnicismos (jergas) confusos.</td></tr>
+                                            <tr className="hover:bg-gray-50"><td className="px-5 py-3 font-bold text-gray-800">Completitud</td><td className="px-5 py-3 text-gray-600 text-xs">Responder a TODAS las dudas.</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
+                        </ContentWithImage>
                     )
                 },
                 {
                     title: "10. Quejas: Desahogo",
                     icon: <AlertTriangle className="w-5 h-5" />,
                     content: (
-                        <div className="space-y-6 fade-in">
-                            <div className="flex justify-between items-center">
-                                <h3 className="text-xl font-bold text-red-700">Paso 1: Actitud Inicial</h3>
-                                <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-bold">Hoja 10</span>
-                            </div>
-                            
-                            <div className="bg-red-50 p-6 rounded-2xl border-l-8 border-red-600 shadow-sm relative">
-                                <div className="absolute -left-3 top-6 bg-white border-2 border-red-600 rounded-full p-1"><AlertTriangle className="w-4 h-4 text-red-600"/></div>
-                                <h4 className="text-lg font-bold text-red-900 mb-3">Permitir el Desahogo</h4>
-                                <p className="text-red-800 mb-4 text-sm leading-relaxed">
-                                    Cuando un cliente está molesto, su cerebro racional está bloqueado. Necesita vaciar su "vaso emocional" antes de escucharte.
-                                </p>
-                                <div className="bg-white/60 p-4 rounded-lg">
-                                    <ul className="list-disc list-inside text-red-900 font-medium space-y-2 text-sm">
-                                        <li>NO interrumpir.</li>
-                                        <li>NO decir "cálmese" (lo empeora).</li>
-                                        <li>NO tomarlo personal.</li>
-                                    </ul>
+                        <ContentWithImage imageSrc="tema10.jpg" imageAlt="Desahogo">
+                            <div className="space-y-6 fade-in">
+                                <div className="flex justify-between items-center"><h3 className="text-xl font-bold text-red-700">Paso 1: Actitud Inicial</h3><span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-bold">Hoja 10</span></div>
+                                <div className="bg-red-50 p-6 rounded-2xl border-l-8 border-red-600 shadow-sm relative">
+                                    <div className="absolute -left-3 top-6 bg-white border-2 border-red-600 rounded-full p-1"><AlertTriangle className="w-4 h-4 text-red-600"/></div>
+                                    <h4 className="text-lg font-bold text-red-900 mb-3">Permitir el Desahogo</h4>
+                                    <p className="text-red-800 mb-4 text-sm leading-relaxed">Cuando un cliente está molesto, su cerebro racional está bloqueado. Necesita vaciar su "vaso emocional" antes de escucharte.</p>
+                                    <div className="bg-white/60 p-4 rounded-lg"><ul className="list-disc list-inside text-red-900 font-medium space-y-2 text-sm"><li>NO interrumpir.</li><li>NO decir "cálmese" (lo empeora).</li><li>NO tomarlo personal.</li></ul></div>
                                 </div>
                             </div>
-                        </div>
+                        </ContentWithImage>
                     )
                 },
                 {
                     title: "11. Quejas: Empatía",
                     icon: <HeartHandshake className="w-5 h-5" />,
                     content: (
-                        <div className="space-y-6 fade-in">
-                            <div className="flex justify-between items-center">
-                                <h3 className="text-xl font-bold text-red-700">Paso 2: Validación</h3>
-                                <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-bold">Hoja 11</span>
-                            </div>
-
-                            <p className="text-gray-600 text-sm">Validar sentimientos no significa admitir culpa legal, sino conectar humanamente.</p>
-
-                            <div className="grid md:grid-cols-2 gap-5">
-                                <div className="bg-white p-5 border-t-4 border-green-500 shadow-sm rounded-xl">
-                                    <h4 className="font-bold text-green-800 mb-2 flex items-center gap-2 text-sm"><CheckCircle2 className="w-4 h-4"/> Correcto (Empatía)</h4>
-                                    <ul className="text-xs text-gray-600 space-y-2 italic">
-                                        <li>"Entiendo perfectamente por qué se siente molesto."</li>
-                                        <li>"Lamento mucho los inconvenientes."</li>
-                                    </ul>
-                                </div>
-                                <div className="bg-white p-5 border-t-4 border-red-500 shadow-sm rounded-xl">
-                                    <h4 className="font-bold text-red-800 mb-2 flex items-center gap-2 text-sm"><X className="w-4 h-4"/> Incorrecto (Excusas)</h4>
-                                    <ul className="text-xs text-gray-600 space-y-2 italic">
-                                        <li>"Es que el sistema es lento." (Culpar a otros)</li>
-                                        <li>"Yo no fui quien le atendió." (Lavarse las manos)</li>
-                                    </ul>
+                        <ContentWithImage imageSrc="tema11.jpg" imageAlt="Empatía">
+                            <div className="space-y-6 fade-in">
+                                <div className="flex justify-between items-center"><h3 className="text-xl font-bold text-red-700">Paso 2: Validación</h3><span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-bold">Hoja 11</span></div>
+                                <p className="text-gray-600 text-sm">Validar sentimientos no significa admitir culpa legal, sino conectar humanamente.</p>
+                                <div className="grid md:grid-cols-2 gap-5">
+                                    <div className="bg-white p-5 border-t-4 border-green-500 shadow-sm rounded-xl"><h4 className="font-bold text-green-800 mb-2 flex items-center gap-2 text-sm"><CheckCircle2 className="w-4 h-4"/> Correcto (Empatía)</h4><ul className="text-xs text-gray-600 space-y-2 italic"><li>"Entiendo perfectamente por qué se siente molesto."</li><li>"Lamento mucho los inconvenientes."</li></ul></div>
+                                    <div className="bg-white p-5 border-t-4 border-red-500 shadow-sm rounded-xl"><h4 className="font-bold text-red-800 mb-2 flex items-center gap-2 text-sm"><X className="w-4 h-4"/> Incorrecto (Excusas)</h4><ul className="text-xs text-gray-600 space-y-2 italic"><li>"Es que el sistema es lento."</li><li>"Yo no fui quien le atendió."</li></ul></div>
                                 </div>
                             </div>
-                        </div>
+                        </ContentWithImage>
                     )
                 },
                 {
                     title: "12. Quejas: Negociación",
                     icon: <ShieldCheck className="w-5 h-5" />,
                     content: (
-                        <div className="space-y-6 fade-in">
-                            <div className="flex justify-between items-center">
-                                <h3 className="text-xl font-bold text-red-700">Paso 3: Solución</h3>
-                                <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-bold">Hoja 12</span>
-                            </div>
-
-                            <div className="space-y-4">
-                                <div className="bg-gradient-to-r from-uneve-50 to-white p-5 rounded-xl border border-uneve-200">
-                                    <div className="flex gap-4">
-                                        <div className="text-3xl font-bold text-uneve-300">A</div>
-                                        <div>
-                                            <h4 className="font-bold text-uneve-900">Ofrecer Opciones</h4>
-                                            <p className="text-gray-700 mt-1 text-sm">Nunca digas solo "no". Di: "Lo que no puedo hacer es X, pero lo que SÍ puedo hacer es Y o Z". Dar poder de elección reduce la ira.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="bg-gradient-to-r from-uneve-50 to-white p-5 rounded-xl border border-uneve-200">
-                                    <div className="flex gap-4">
-                                        <div className="text-3xl font-bold text-uneve-300">B</div>
-                                        <div>
-                                            <h4 className="font-bold text-uneve-900">Compromiso Claro</h4>
-                                            <p className="text-gray-700 mt-1 text-sm">Definir con exactitud: Quién hace qué y para cuándo.</p>
-                                        </div>
-                                    </div>
+                        <ContentWithImage imageSrc="tema12.jpg" imageAlt="Negociación">
+                            <div className="space-y-6 fade-in">
+                                <div className="flex justify-between items-center"><h3 className="text-xl font-bold text-red-700">Paso 3: Solución</h3><span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-bold">Hoja 12</span></div>
+                                <div className="space-y-4">
+                                    <div className="bg-gradient-to-r from-uneve-50 to-white p-5 rounded-xl border border-uneve-200"><div className="flex gap-4"><div className="text-3xl font-bold text-uneve-300">A</div><div><h4 className="font-bold text-uneve-900">Ofrecer Opciones</h4><p className="text-gray-700 mt-1 text-sm">Nunca digas solo "no". Di: "Lo que no puedo hacer es X, pero lo que SÍ puedo hacer es Y o Z".</p></div></div></div>
+                                    <div className="bg-gradient-to-r from-uneve-50 to-white p-5 rounded-xl border border-uneve-200"><div className="flex gap-4"><div className="text-3xl font-bold text-uneve-300">B</div><div><h4 className="font-bold text-uneve-900">Compromiso Claro</h4><p className="text-gray-700 mt-1 text-sm">Definir con exactitud: Quién hace qué y para cuándo.</p></div></div></div>
                                 </div>
                             </div>
-                        </div>
+                        </ContentWithImage>
                     )
                 },
                 {
                     title: "13. Quejas: Seguimiento",
                     icon: <CheckCircle2 className="w-5 h-5" />,
                     content: (
-                        <div className="space-y-6 fade-in">
-                            <div className="flex justify-between items-center">
-                                <h3 className="text-xl font-bold text-red-700">Paso 4: Cierre</h3>
-                                <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-bold">Hoja 13</span>
+                        <ContentWithImage imageSrc="tema13.jpg" imageAlt="Seguimiento">
+                            <div className="space-y-6 fade-in">
+                                <div className="flex justify-between items-center"><h3 className="text-xl font-bold text-red-700">Paso 4: Cierre</h3><span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-xs font-bold">Hoja 13</span></div>
+                                <div className="bg-gray-50 p-6 rounded-2xl text-center border border-gray-200"><h4 className="font-bold text-gray-800 mb-4 uppercase tracking-widest text-xs">Ciclo de Recuperación</h4><div className="flex flex-col md:flex-row justify-center items-center gap-3"><div className="bg-white p-3 shadow-sm rounded-lg w-full md:w-auto font-medium text-gray-700 text-sm">1. Acción</div><ArrowRight className="text-gray-400 rotate-90 md:rotate-0 w-4 h-4" /><div className="bg-white p-3 shadow-sm rounded-lg w-full md:w-auto font-medium text-gray-700 text-sm">2. Verificación</div><ArrowRight className="text-gray-400 rotate-90 md:rotate-0 w-4 h-4" /><div className="bg-white p-3 shadow-sm rounded-lg w-full md:w-auto font-medium text-gray-700 text-sm">3. Agradecimiento</div></div></div>
+                                <div className="bg-green-50 text-green-800 p-3 rounded-lg text-xs border border-green-200 text-center"><strong>Paradoja de la recuperación:</strong> Una queja bien resuelta fideliza más que un servicio perfecto.</div>
                             </div>
-
-                            <div className="bg-gray-50 p-6 rounded-2xl text-center border border-gray-200">
-                                <h4 className="font-bold text-gray-800 mb-4 uppercase tracking-widest text-xs">Ciclo de Recuperación</h4>
-                                <div className="flex flex-col md:flex-row justify-center items-center gap-3">
-                                    <div className="bg-white p-3 shadow-sm rounded-lg w-full md:w-auto font-medium text-gray-700 text-sm">1. Acción</div>
-                                    <ArrowRight className="text-gray-400 rotate-90 md:rotate-0 w-4 h-4" />
-                                    <div className="bg-white p-3 shadow-sm rounded-lg w-full md:w-auto font-medium text-gray-700 text-sm">2. Verificación</div>
-                                    <ArrowRight className="text-gray-400 rotate-90 md:rotate-0 w-4 h-4" />
-                                    <div className="bg-white p-3 shadow-sm rounded-lg w-full md:w-auto font-medium text-gray-700 text-sm">3. Agradecimiento</div>
-                                </div>
-                            </div>
-                            
-                            <div className="bg-green-50 text-green-800 p-3 rounded-lg text-xs border border-green-200 text-center">
-                                <strong>Paradoja de la recuperación:</strong> Una queja bien resuelta fideliza más que un servicio perfecto.
-                            </div>
-                        </div>
+                        </ContentWithImage>
                     )
                 },
                 {
                     title: "14. Cierre del Servicio",
                     icon: <ArrowRight className="w-5 h-5" />,
                     content: (
-                        <div className="space-y-6 fade-in">
-                            <h3 className="text-xl font-bold text-gray-800">Despedida Protocolaria</h3>
-                            <p className="text-gray-600 text-sm">El último momento de la verdad.</p>
-
-                            <div className="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-100">
-                                <div className="bg-gradient-to-r from-uneve-700 to-uneve-900 p-3 text-white font-bold text-center text-sm">
-                                    Checklist Final
-                                </div>
-                                <div className="p-6">
-                                    <ul className="space-y-3 text-gray-700 text-sm">
-                                        <li className="flex items-center gap-3 p-1.5 hover:bg-gray-50 rounded transition-colors">
-                                            <div className="bg-green-100 p-1 rounded-full"><CheckCircle2 className="w-4 h-4 text-green-600"/></div>
-                                            <span>¿Preguntó si hay algún <strong>otro requerimiento</strong>?</span>
-                                        </li>
-                                        <li className="flex items-center gap-3 p-1.5 hover:bg-gray-50 rounded transition-colors">
-                                            <div className="bg-green-100 p-1 rounded-full"><CheckCircle2 className="w-4 h-4 text-green-600"/></div>
-                                            <span>¿Reiteró su nombre y <strong>agradeció</strong> la visita?</span>
-                                        </li>
-                                        <li className="flex items-center gap-3 p-1.5 hover:bg-gray-50 rounded transition-colors">
-                                            <div className="bg-green-100 p-1 rounded-full"><CheckCircle2 className="w-4 h-4 text-green-600"/></div>
-                                            <span>¿Invitó al cliente a <strong>regresar</strong>?</span>
-                                        </li>
-                                        <li className="flex items-center gap-3 p-1.5 hover:bg-gray-50 rounded transition-colors">
-                                            <div className="bg-green-100 p-1 rounded-full"><CheckCircle2 className="w-4 h-4 text-green-600"/></div>
-                                            <span>¿Esperó a que el cliente se retirara primero?</span>
-                                        </li>
-                                    </ul>
+                        <ContentWithImage imageSrc="tema14.jpg" imageAlt="Cierre">
+                            <div className="space-y-6 fade-in">
+                                <h3 className="text-xl font-bold text-gray-800">Despedida Protocolaria</h3>
+                                <p className="text-gray-600 text-sm">El último momento de la verdad.</p>
+                                <div className="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-100">
+                                    <div className="bg-gradient-to-r from-uneve-700 to-uneve-900 p-3 text-white font-bold text-center text-sm">Checklist Final</div>
+                                    <div className="p-6"><ul className="space-y-3 text-gray-700 text-sm"><li className="flex items-center gap-3 p-1.5 hover:bg-gray-50 rounded transition-colors"><div className="bg-green-100 p-1 rounded-full"><CheckCircle2 className="w-4 h-4 text-green-600"/></div><span>¿Preguntó si hay algún <strong>otro requerimiento</strong>?</span></li><li className="flex items-center gap-3 p-1.5 hover:bg-gray-50 rounded transition-colors"><div className="bg-green-100 p-1 rounded-full"><CheckCircle2 className="w-4 h-4 text-green-600"/></div><span>¿Reiteró su nombre y <strong>agradeció</strong> la visita?</span></li><li className="flex items-center gap-3 p-1.5 hover:bg-gray-50 rounded transition-colors"><div className="bg-green-100 p-1 rounded-full"><CheckCircle2 className="w-4 h-4 text-green-600"/></div><span>¿Invitó al cliente a <strong>regresar</strong>?</span></li><li className="flex items-center gap-3 p-1.5 hover:bg-gray-50 rounded transition-colors"><div className="bg-green-100 p-1 rounded-full"><CheckCircle2 className="w-4 h-4 text-green-600"/></div><span>¿Esperó a que el cliente se retirara primero?</span></li></ul></div>
                                 </div>
                             </div>
-                        </div>
+                        </ContentWithImage>
                     )
                 },
                 {
                     title: "15. Resumen Examen",
                     icon: <BookOpen className="w-5 h-5" />,
                     content: (
-                        <div className="space-y-8 fade-in text-center flex flex-col items-center justify-center h-full">
-                            <h3 className="text-3xl font-bold text-uneve-900">¡Conceptos Clave!</h3>
-                            <p className="text-gray-600 text-sm">Memoriza esto para tu certificación.</p>
-
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
-                                <div className="bg-orange-50 p-5 rounded-xl border border-orange-200 hover:shadow-lg transition-all">
-                                    <h5 className="font-bold text-uneve-900 mb-2">Actitudes</h5>
-                                    <p className="text-xs text-gray-600">Disposición interna (Amabilidad, Tolerancia).</p>
+                        <ContentWithImage imageSrc="tema15.jpg" imageAlt="Resumen">
+                            <div className="space-y-8 fade-in text-center flex flex-col items-center justify-center h-full">
+                                <h3 className="text-3xl font-bold text-uneve-900">¡Conceptos Clave!</h3>
+                                <p className="text-gray-600 text-sm">Memoriza esto para tu certificación.</p>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+                                    <div className="bg-orange-50 p-5 rounded-xl border border-orange-200 hover:shadow-lg transition-all"><h5 className="font-bold text-uneve-900 mb-2">Actitudes</h5><p className="text-xs text-gray-600">Disposición interna (Amabilidad, Tolerancia).</p></div>
+                                    <div className="bg-orange-50 p-5 rounded-xl border border-orange-200 hover:shadow-lg transition-all"><h5 className="font-bold text-uneve-900 mb-2">Conocimientos</h5><p className="text-xs text-gray-600">Información técnica y políticas.</p></div>
+                                    <div className="bg-orange-50 p-5 rounded-xl border border-orange-200 hover:shadow-lg transition-all"><h5 className="font-bold text-uneve-900 mb-2">Desempeños</h5><p className="text-xs text-gray-600">Lo observable (Mirar a los ojos, sonreír).</p></div>
                                 </div>
-                                <div className="bg-orange-50 p-5 rounded-xl border border-orange-200 hover:shadow-lg transition-all">
-                                    <h5 className="font-bold text-uneve-900 mb-2">Conocimientos</h5>
-                                    <p className="text-xs text-gray-600">Información técnica y políticas.</p>
-                                </div>
-                                <div className="bg-orange-50 p-5 rounded-xl border border-orange-200 hover:shadow-lg transition-all">
-                                    <h5 className="font-bold text-uneve-900 mb-2">Desempeños</h5>
-                                    <p className="text-xs text-gray-600">Lo observable (Mirar a los ojos, sonreír).</p>
-                                </div>
+                                <button onClick={() => setActivePage(0)} className="mt-6 text-uneve-800 underline font-bold hover:text-uneve-900 transition-colors">Volver a la Portada</button>
                             </div>
-
-                            <button onClick={() => setActivePage(0)} className="mt-6 text-uneve-800 underline font-bold hover:text-uneve-900 transition-colors">
-                                Volver a la Portada
-                            </button>
-                        </div>
+                        </ContentWithImage>
                     )
                 }
             ];
@@ -626,34 +481,34 @@
                         <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>{isMobileMenuOpen ? <X /> : <Menu />}</button>
                     </div>
 
-                    {/* Sidebar */}
-                    <aside className={`fixed md:sticky top-0 h-screen w-72 bg-gradient-to-b from-uneve-900 to-uneve-800 text-white flex flex-col transition-transform duration-300 z-40 overflow-y-auto border-r border-uneve-700 shadow-2xl ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
-                        <div className="p-6 border-b border-uneve-700 bg-uneve-900/50">
+                    {/* Sidebar (Ahora Color Vino) */}
+                    <aside className={`fixed md:sticky top-0 h-screen w-72 bg-gradient-to-b from-uneve-900 to-uneve-800 text-white flex flex-col transition-transform duration-300 z-40 overflow-y-auto border-r border-uneve-800 shadow-xl ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
+                        <div className="p-6 border-b border-uneve-800 bg-uneve-900/50">
                             <h1 className="text-xl font-bold leading-tight">UNEVE</h1>
                             <p className="text-uneve-200 text-xs mt-1 uppercase tracking-wide font-semibold">Manual EC0305</p>
                         </div>
                         <nav className="flex-1 p-4 space-y-1">
                             {pages.map((page, index) => (
-                                <button key={index} onClick={() => { setActivePage(index); setIsMobileMenuOpen(false); }}
-                                    className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${
+                                <div key={index} 
+                                    className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 cursor-default ${
                                         activePage === index 
-                                        ? 'bg-white text-uneve-900 shadow-md font-bold translate-x-1' 
-                                        : 'text-uneve-100 hover:bg-uneve-700 hover:text-white hover:translate-x-1'
+                                        ? 'bg-white text-uneve-900 shadow-md font-bold' 
+                                        : 'text-uneve-100 opacity-70 hover:bg-uneve-700 hover:text-white'
                                     }`}>
                                     <div className={activePage === index ? 'text-uneve-600' : 'text-uneve-300'}>{page.icon}</div>
                                     <span className="text-left truncate">{page.title}</span>
-                                </button>
+                                </div>
                             ))}
                         </nav>
-                        <div className="p-4 text-center text-xs text-uneve-300 border-t border-uneve-700">
+                        <div className="p-4 text-center text-xs text-uneve-200 border-t border-uneve-800 font-medium">
                             Estándar de Competencia
                         </div>
                     </aside>
 
                     {/* Main Content Area */}
-                    <main className="flex-1 p-4 md:p-8 w-full max-w-5xl mx-auto flex flex-col h-full overflow-hidden">
+                    <main className="flex-1 p-4 md:p-8 w-full max-w-6xl mx-auto flex flex-col h-full overflow-hidden">
                         
-                        {/* Progress Bar Container (Fixed Top) */}
+                        {/* Progress Bar Container */}
                         {activePage !== 0 && (
                             <div className="mb-6 fade-in px-2 shrink-0">
                                 <div className="flex justify-between text-xs text-uneve-800 mb-2 font-bold uppercase tracking-wider">
@@ -669,7 +524,7 @@
                             </div>
                         )}
 
-                        {/* Card Container (Takes remaining space, Centered content) */}
+                        {/* Card Container */}
                         <div className="flex-1 flex flex-col justify-center min-h-0 w-full">
                             <div className="bg-white rounded-2xl shadow-xl border border-orange-100 overflow-hidden flex flex-col h-fit max-h-full">
                                 {/* Cabecera de Tarjeta (Ocultar en portada) */}
@@ -680,25 +535,27 @@
                                     </div>
                                 )}
                                 
-                                {/* Contenido Scrollable */}
-                                <div className={`p-6 md:p-10 leading-relaxed overflow-y-auto card-content ${activePage === 0 ? 'bg-gradient-to-br from-uneve-50 to-white flex items-center justify-center' : ''}`}>
+                                {/* Contenido - Ahora incluye la imagen lateral para páginas de contenido */}
+                                <div className={`flex-1 overflow-hidden ${activePage === 0 ? 'bg-gradient-to-br from-uneve-50 to-white flex items-center justify-center' : ''}`}>
                                     {pages[activePage].content}
                                 </div>
                             </div>
                         </div>
 
-                        {/* Botones Fijos (Fixed Bottom) */}
-                        <div className="flex justify-between mt-6 pt-2 shrink-0">
-                            <button disabled={activePage === 0} onClick={() => setActivePage(prev => prev - 1)}
-                                className={`px-6 py-3 rounded-lg font-medium transition-all ${activePage === 0 ? 'opacity-0 cursor-default' : 'bg-white text-uneve-800 border border-uneve-200 hover:bg-uneve-50 shadow-sm hover:shadow-md'}`}>
-                                Anterior
-                            </button>
-                            
-                            <button disabled={activePage === pages.length - 1} onClick={() => setActivePage(prev => prev + 1)}
-                                className={`px-6 py-3 rounded-lg font-medium transition-all flex items-center gap-2 ${activePage === pages.length - 1 ? 'opacity-50 cursor-not-allowed bg-gray-200' : 'bg-uneve-900 text-white hover:bg-uneve-800 shadow-md hover:shadow-lg hover:scale-105'}`}>
-                                Siguiente <ArrowRight className="w-4 h-4" />
-                            </button>
-                        </div>
+                        {/* Botones Fijos (Ocultos en portada) */}
+                        {activePage !== 0 && (
+                            <div className="flex justify-between mt-6 pt-2 shrink-0">
+                                <button disabled={activePage === 0} onClick={() => setActivePage(prev => prev - 1)}
+                                    className={`px-6 py-3 rounded-lg font-medium transition-all ${activePage === 0 ? 'opacity-0 cursor-default' : 'bg-white text-uneve-800 border border-uneve-200 hover:bg-uneve-50 shadow-sm hover:shadow-md'}`}>
+                                    Anterior
+                                </button>
+                                
+                                <button disabled={activePage === pages.length - 1} onClick={() => setActivePage(prev => prev + 1)}
+                                    className={`px-6 py-3 rounded-lg font-medium transition-all flex items-center gap-2 ${activePage === pages.length - 1 ? 'opacity-50 cursor-not-allowed bg-gray-200' : 'bg-uneve-900 text-white hover:bg-uneve-800 shadow-md hover:shadow-lg hover:scale-105'}`}>
+                                    Siguiente <ArrowRight className="w-4 h-4" />
+                                </button>
+                            </div>
+                        )}
                     </main>
                 </div>
             );
