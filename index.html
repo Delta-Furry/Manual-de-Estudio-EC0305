@@ -1,0 +1,733 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  BookOpen, 
+  UserCheck, 
+  MessageCircle, 
+  Phone, 
+  Monitor, 
+  Ear, 
+  AlertTriangle, 
+  HeartHandshake, 
+  CheckCircle2, 
+  ArrowRight, 
+  Menu,
+  X,
+  ClipboardList,
+  ShieldCheck,
+  User
+} from 'lucide-react';
+
+const ManualEC0305 = () => {
+  const [activePage, setActivePage] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Scroll to top when changing pages
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [activePage]);
+
+  const pages = [
+    {
+      title: "1. Introducción al Estándar EC0305",
+      icon: <BookOpen className="w-5 h-5" />,
+      content: (
+        <div className="space-y-6">
+          <div className="bg-blue-50 border-l-4 border-blue-600 p-4">
+            <h3 className="text-xl font-bold text-blue-900">Objetivo del Estándar</h3>
+            <p className="text-blue-800 mt-2">
+              Servir como referente para la evaluación y certificación de las personas que prestan servicios de atención a clientes. Abarca desde la preparación del área, la atención de requerimientos, hasta el manejo de situaciones difíciles y el cierre del servicio.
+            </p>
+          </div>
+          
+          <h4 className="text-lg font-semibold text-gray-800">¿A quién va dirigido?</h4>
+          <p className="text-gray-600">
+            A personas que interactúan directa o indirectamente con el cliente para ofrecerle un servicio o producto, independientemente del sector (público o privado).
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+              <h5 className="font-bold text-gray-800 mb-2">Elementos Fundamentales</h5>
+              <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                <li>Preparación del servicio.</li>
+                <li>Atención al cliente (Necesidades).</li>
+                <li>Manejo de situaciones difíciles (Quejas).</li>
+                <li>Cierre del servicio.</li>
+              </ul>
+            </div>
+            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+              <h5 className="font-bold text-gray-800 mb-2">Actitudes, Hábitos y Valores</h5>
+              <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                <li>Amabilidad.</li>
+                <li>Tolerancia.</li>
+                <li>Responsabilidad.</li>
+                <li>Limpieza.</li>
+                <li>Orden.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "2. Preparación del Área y Persona",
+      icon: <UserCheck className="w-5 h-5" />,
+      content: (
+        <div className="space-y-6">
+          <p className="text-gray-600">
+            El servicio comienza antes de que llegue el cliente. El estándar evalúa cómo te encuentras tú y tu entorno antes de la interacción.
+          </p>
+
+          <div className="space-y-4">
+            <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+              <h3 className="text-lg font-bold text-indigo-700 flex items-center gap-2">
+                <User className="w-5 h-5" /> Imagen Personal
+              </h3>
+              <p className="text-sm text-gray-500 mb-3">La primera impresión es visual.</p>
+              <ul className="space-y-2">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500 mt-1" />
+                  <span className="text-gray-700"><strong>Vestimenta:</strong> Debe estar limpia, planchada y corresponder al código de vestimenta de la organización.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500 mt-1" />
+                  <span className="text-gray-700"><strong>Aseo personal:</strong> Cabello peinado, manos limpias, uñas cortas/cuidadas, aliento fresco.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500 mt-1" />
+                  <span className="text-gray-700"><strong>Accesorios:</strong> Discretos, que no interfieran con las actividades o la seguridad.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+              <h3 className="text-lg font-bold text-indigo-700 flex items-center gap-2">
+                <Monitor className="w-5 h-5" /> Área de Trabajo
+              </h3>
+              <p className="text-sm text-gray-500 mb-3">El entorno comunica profesionalismo.</p>
+              <ul className="space-y-2">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500 mt-1" />
+                  <span className="text-gray-700"><strong>Orden y Limpieza:</strong> El escritorio o mostrador debe estar libre de objetos personales, comida o basura.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500 mt-1" />
+                  <span className="text-gray-700"><strong>Insumos:</strong> Verificar la existencia de papelería, formatos, plumas y sistemas informáticos funcionando antes de abrir.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "3. Protocolo de Inicio: El Saludo",
+      icon: <HandshakeIcon className="w-5 h-5" />,
+      content: (
+        <div className="space-y-6">
+          <h3 className="text-2xl font-bold text-gray-800">El Primer Contacto</h3>
+          <p className="text-gray-600">
+            Según el EC0305, el inicio de la atención es crítico para establecer un clima de confianza. No basta con decir "hola".
+          </p>
+
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-100">
+            <h4 className="font-bold text-blue-900 mb-4">Pasos Obligatorios del Saludo</h4>
+            <ol className="list-decimal list-inside space-y-3 text-gray-700">
+              <li>
+                <strong>Contacto Visual:</strong> Mirar a los ojos al cliente (en presencial) para denotar atención.
+              </li>
+              <li>
+                <strong>Sonrisa:</strong> Una expresión facial amable (o tono de voz sonriente en teléfono).
+              </li>
+              <li>
+                <strong>Saludo Verbal:</strong> "Buenos días", "Buenas tardes", acorde al horario.
+              </li>
+              <li>
+                <strong>Presentación:</strong> Mencionar tu nombre y cargo/empresa. <br/>
+                <span className="text-sm italic text-gray-500 ml-5">Ejemplo: "Buenos días, mi nombre es Ana, asesora de servicio."</span>
+              </li>
+              <li>
+                <strong>Ofrecimiento de ayuda:</strong> "¿En qué puedo servirle hoy?"
+              </li>
+            </ol>
+          </div>
+
+          <div className="bg-yellow-50 p-4 rounded-md border-l-4 border-yellow-400">
+            <p className="text-sm text-yellow-800">
+              <strong>Nota Importante:</strong> El estándar evalúa la "Amabilidad". Esto significa que el saludo no debe sonar robotizado, sino genuino y cortés.
+            </p>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "4. Canal de Atención: Presencial",
+      icon: <User className="w-5 h-5" />,
+      content: (
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h3 className="text-2xl font-bold text-gray-800">Canal Presencial (Cara a Cara)</h3>
+            <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-bold">Hoja 4</span>
+          </div>
+          
+          <p className="text-gray-600">
+            Es la interacción directa física. Aquí el lenguaje corporal representa el 55% de la comunicación.
+          </p>
+
+          <div className="grid grid-cols-1 gap-4">
+            <div className="bg-white p-4 rounded shadow-sm border-t-4 border-green-500">
+              <h4 className="font-bold text-lg mb-2">Lenguaje Corporal (Kinésica)</h4>
+              <ul className="list-disc list-inside text-gray-600 space-y-2">
+                <li><strong>Postura:</strong> Erguida pero relajada. Evitar cruzar brazos (barrera) o recargarse con desgano.</li>
+                <li><strong>Gestos:</strong> Asentir con la cabeza para demostrar escucha activa. Manos visibles.</li>
+                <li><strong>Distancia (Proxémica):</strong> Respetar el espacio personal del cliente (aprox. 1.2 metros), ni muy cerca (invasivo) ni muy lejos (indiferente).</li>
+              </ul>
+            </div>
+
+            <div className="bg-white p-4 rounded shadow-sm border-t-4 border-green-500">
+              <h4 className="font-bold text-lg mb-2">Entorno Físico</h4>
+              <p className="text-gray-600 mb-2">El cliente evalúa todo lo que ve.</p>
+              <ul className="list-disc list-inside text-gray-600 space-y-2">
+                <li>Mobiliario limpio y en buen estado.</li>
+                <li>Iluminación adecuada.</li>
+                <li>Ausencia de distracciones (celular personal del empleado).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "5. Canal de Atención: Telefónico",
+      icon: <Phone className="w-5 h-5" />,
+      content: (
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h3 className="text-2xl font-bold text-gray-800">Canal Telefónico</h3>
+            <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-bold">Hoja 5</span>
+          </div>
+
+          <p className="text-gray-600">
+            Aquí la voz es la única herramienta. La "sonrisa telefónica" es detectable por el cliente.
+          </p>
+
+          <div className="bg-slate-800 text-white p-6 rounded-lg shadow-lg">
+            <h4 className="text-xl font-bold text-blue-300 mb-4">Reglas de Oro del EC0305 Telefónico</h4>
+            <div className="space-y-4">
+              <div>
+                <h5 className="font-bold text-white">1. Velocidad de respuesta</h5>
+                <p className="text-slate-300 text-sm">Contestar antes del tercer timbrazo.</p>
+              </div>
+              <div className="border-t border-slate-700 pt-3">
+                <h5 className="font-bold text-white">2. Tono y Volumen</h5>
+                <p className="text-slate-300 text-sm">Voz clara, pausada y con volumen moderado. Evitar comerse las palabras o hablar demasiado rápido.</p>
+              </div>
+              <div className="border-t border-slate-700 pt-3">
+                <h5 className="font-bold text-white">3. Tiempos de Espera</h5>
+                <p className="text-slate-300 text-sm">Si es necesario poner al cliente en espera (hold):</p>
+                <ul className="list-disc list-inside text-slate-400 text-xs ml-4 mt-1">
+                  <li>Pedir permiso primero.</li>
+                  <li>Explicar la razón ("Voy a consultar su saldo...").</li>
+                  <li>Retomar la llamada cada 30-40 segundos para informar estatus.</li>
+                  <li>Agradecer la espera al retomar.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "6. Canal de Atención: Digital/Escrito",
+      icon: <Monitor className="w-5 h-5" />,
+      content: (
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h3 className="text-2xl font-bold text-gray-800">Canal Digital y Escrito</h3>
+            <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-bold">Hoja 6</span>
+          </div>
+
+          <p className="text-gray-600">
+            Chats, correos electrónicos y redes sociales. El reto es la falta de tono emocional y la inmediatez.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-white p-5 rounded-lg border border-gray-200">
+              <h4 className="font-bold text-purple-700 mb-3">Ortografía y Redacción</h4>
+              <p className="text-sm text-gray-600 mb-2">
+                Es la "higiene" del canal digital. Un error ortográfico resta credibilidad inmediata.
+              </p>
+              <ul className="text-sm text-gray-600 list-disc list-inside">
+                <li>Uso correcto de mayúsculas y minúsculas (NO ESCRIBIR TODO EN MAYÚSCULAS, parece que gritas).</li>
+                <li>Sintaxis clara y párrafos cortos.</li>
+              </ul>
+            </div>
+
+            <div className="bg-white p-5 rounded-lg border border-gray-200">
+              <h4 className="font-bold text-purple-700 mb-3">Netiqueta</h4>
+              <ul className="text-sm text-gray-600 list-disc list-inside space-y-2">
+                <li><strong>Saludo y Despedida:</strong> Igual de formales que en presencial.</li>
+                <li><strong>Personalización:</strong> Usar el nombre del cliente, no respuestas automáticas genéricas excesivas.</li>
+                <li><strong>Tiempos de respuesta:</strong> En chat debe ser casi inmediato; en correo, establecer un plazo máximo (SLA).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "7. Detección de Necesidades",
+      icon: <Ear className="w-5 h-5" />,
+      content: (
+        <div className="space-y-6">
+          <h3 className="text-2xl font-bold text-gray-800">Identificar lo que el cliente quiere</h3>
+          <p className="text-gray-600">
+            No podemos ofrecer una solución si no entendemos el problema. El EC0305 evalúa la técnica de interrogatorio y escucha.
+          </p>
+
+          <div className="flex flex-col gap-4">
+            <div className="bg-amber-50 p-4 rounded-lg border border-amber-200">
+              <h4 className="font-bold text-amber-800">Escucha Activa</h4>
+              <p className="text-sm text-amber-900 mt-1">
+                Implica concentrarse totalmente en el mensaje, comprendiendo no solo las palabras, sino la emoción. 
+                <br/><em>Evidencia:</em> Hacer parafraseo ("Si le entendí bien, usted necesita...").
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-white p-4 rounded border shadow-sm">
+                <h5 className="font-bold text-gray-800">Preguntas Abiertas</h5>
+                <p className="text-xs text-gray-500 mt-1">Para obtener información amplia.</p>
+                <p className="text-sm italic text-blue-600 mt-2">"¿Qué tipo de problema presenta su equipo?"</p>
+              </div>
+              <div className="bg-white p-4 rounded border shadow-sm">
+                <h5 className="font-bold text-gray-800">Preguntas Cerradas</h5>
+                <p className="text-xs text-gray-500 mt-1">Para confirmar datos específicos.</p>
+                <p className="text-sm italic text-blue-600 mt-2">"¿El equipo es modelo 2023?"</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "8. Tipos de Interacción",
+      icon: <MessageCircle className="w-5 h-5" />,
+      content: (
+        <div className="space-y-6">
+          <h3 className="text-2xl font-bold text-gray-800">Clasificación de Interacciones</h3>
+          <p className="text-gray-600">
+            No todas las atenciones son iguales. El manual debe distinguir cómo actuar en cada caso.
+          </p>
+
+          <div className="space-y-4">
+            <div className="relative pl-8 border-l-4 border-blue-500 py-2">
+              <div className="absolute -left-3 top-0 bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">A</div>
+              <h4 className="font-bold text-gray-800">Interacción Transaccional</h4>
+              <p className="text-gray-600 text-sm">
+                Rápida, rutinaria, enfocada en el intercambio de un bien o servicio simple.
+                <br/><strong>Clave:</strong> Eficiencia y rapidez.
+                <br/><em>Ejemplo:</em> Pagar un servicio en ventanilla.
+              </p>
+            </div>
+
+            <div className="relative pl-8 border-l-4 border-indigo-500 py-2">
+              <div className="absolute -left-3 top-0 bg-indigo-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">B</div>
+              <h4 className="font-bold text-gray-800">Interacción Consultiva</h4>
+              <p className="text-gray-600 text-sm">
+                Requiere análisis, asesoría y diagnóstico. El cliente no sabe exactamente qué necesita.
+                <br/><strong>Clave:</strong> Conocimiento del producto y paciencia.
+                <br/><em>Ejemplo:</em> Elegir un plan de seguros o soporte técnico avanzado.
+              </p>
+            </div>
+
+            <div className="relative pl-8 border-l-4 border-red-500 py-2">
+              <div className="absolute -left-3 top-0 bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">C</div>
+              <h4 className="font-bold text-gray-800">Interacción Relacional/Afectiva</h4>
+              <p className="text-gray-600 text-sm">
+                Enfocada en construir lealtad a largo plazo. Se involucran emociones y personalización extrema.
+                <br/><strong>Clave:</strong> Empatía y memoria (recordar preferencias).
+              </p>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "9. Gestión de la Información",
+      icon: <ClipboardList className="w-5 h-5" />,
+      content: (
+        <div className="space-y-6">
+          <h3 className="text-2xl font-bold text-gray-800">Suministro de Información</h3>
+          <p className="text-gray-600">
+            Una vez detectada la necesidad, el candidato debe proporcionar la solución o información.
+          </p>
+
+          <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Criterio</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descripción</th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-gray-200">
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap font-bold text-sm text-gray-800">Veracidad</td>
+                  <td className="px-6 py-4 text-sm text-gray-600">La información debe ser real, actualizada y sin mentiras para "vender más".</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap font-bold text-sm text-gray-800">Claridad</td>
+                  <td className="px-6 py-4 text-sm text-gray-600">Sin tecnicismos excesivos (jergas) que el cliente no entienda.</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-4 whitespace-nowrap font-bold text-sm text-gray-800">Completitud</td>
+                  <td className="px-6 py-4 text-sm text-gray-600">Responder a TODAS las preguntas formuladas, no solo a algunas.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "10. Manejo de Quejas (1/4): Actitud Inicial",
+      icon: <AlertTriangle className="w-5 h-5" />,
+      content: (
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h3 className="text-2xl font-bold text-red-700">Manejo de Situaciones Difíciles</h3>
+            <span className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-bold">Hoja 10</span>
+          </div>
+          
+          <div className="bg-red-50 p-6 rounded-lg border-l-4 border-red-600">
+            <h4 className="text-xl font-bold text-red-800 mb-2">Paso 1: Permitir el desahogo</h4>
+            <p className="text-gray-700 mb-4">
+              Cuando un cliente está molesto, la parte racional de su cerebro está bloqueada por la emocional.
+            </p>
+            <ul className="list-disc list-inside space-y-2 font-medium text-red-900">
+              <li>NO interrumpir.</li>
+              <li>NO decir "cálmese" (esto suele enfurecer más).</li>
+              <li>NO tomarlo personal (el cliente está enojado con la situación/empresa, no contigo).</li>
+              <li>Mantener contacto visual firme pero no retador.</li>
+            </ul>
+          </div>
+          <p className="text-sm text-gray-500 italic text-center">
+            "El cliente necesita vaciar su 'vaso emocional' antes de que podamos llenarlo con soluciones."
+          </p>
+        </div>
+      )
+    },
+    {
+      title: "11. Manejo de Quejas (2/4): Empatía",
+      icon: <HeartHandshake className="w-5 h-5" />,
+      content: (
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h3 className="text-2xl font-bold text-red-700">Validación y Empatía</h3>
+            <span className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-bold">Hoja 11</span>
+          </div>
+
+          <p className="text-gray-600">
+            Una vez que el cliente deja de hablar, debemos validar sus sentimientos sin necesariamente admitir culpa legal si no la hay.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-white p-4 shadow rounded border-t-4 border-pink-500">
+              <h4 className="font-bold text-gray-800">Frases de Empatía (Correctas)</h4>
+              <ul className="text-sm text-gray-600 mt-2 space-y-2">
+                <li>"Entiendo perfectamente por qué se siente molesto."</li>
+                <li>"Lamento mucho los inconvenientes que esto le ha causado."</li>
+                <li>"Veo que esto es urgente para usted."</li>
+              </ul>
+            </div>
+            <div className="bg-white p-4 shadow rounded border-t-4 border-gray-400">
+              <h4 className="font-bold text-gray-800">Frases Prohibidas (Excusas)</h4>
+              <ul className="text-sm text-gray-600 mt-2 space-y-2">
+                <li>"Es que el sistema es lento." (Culpar a otros)</li>
+                <li>"Yo no fui quien le atendió ayer." (Lavarse las manos)</li>
+                <li>"Usted debió leer el contrato." (Culpar al cliente)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "12. Manejo de Quejas (3/4): Negociación",
+      icon: <ShieldCheck className="w-5 h-5" />,
+      content: (
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h3 className="text-2xl font-bold text-red-700">Propuesta de Solución</h3>
+            <span className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-bold">Hoja 12</span>
+          </div>
+
+          <p className="text-gray-600">
+            Aquí pasamos a la acción. El estándar EC0305 exige ofrecer alternativas.
+          </p>
+
+          <div className="space-y-4">
+            <div className="flex items-start gap-4">
+              <div className="bg-blue-100 p-2 rounded-full text-blue-600 font-bold">A</div>
+              <div>
+                <h4 className="font-bold text-gray-800">Ofrecer Opciones</h4>
+                <p className="text-sm text-gray-600">Nunca digas solo "no se puede". Di: "Lo que no puedo hacer es X, pero lo que SÍ puedo hacer por usted es Y o Z". Dar poder de elección reduce la ira.</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+              <div className="bg-blue-100 p-2 rounded-full text-blue-600 font-bold">B</div>
+              <div>
+                <h4 className="font-bold text-gray-800">Compromiso Claro</h4>
+                <p className="text-sm text-gray-600">Definir qué se hará, quién lo hará y cuándo. <br/><em>"Yo personalmente enviaré su reporte al área técnica hoy a las 4:00 PM".</em></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "13. Manejo de Quejas (4/4): Seguimiento",
+      icon: <CheckCircle2 className="w-5 h-5" />,
+      content: (
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h3 className="text-2xl font-bold text-red-700">Verificación y Cierre de Queja</h3>
+            <span className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-bold">Hoja 13</span>
+          </div>
+
+          <p className="text-gray-600">
+            Una queja no termina cuando el cliente cuelga o se va, sino cuando se resuelve.
+          </p>
+
+          <div className="bg-gray-100 p-6 rounded-xl">
+            <h4 className="font-bold text-gray-800 mb-4 text-center">Ciclo de Recuperación del Cliente</h4>
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+              <div className="bg-white p-3 rounded text-center w-full shadow-sm">
+                1. Aplicar solución acordada
+              </div>
+              <ArrowRight className="hidden md:block text-gray-400" />
+              <div className="bg-white p-3 rounded text-center w-full shadow-sm">
+                2. Confirmar satisfacción
+              </div>
+              <ArrowRight className="hidden md:block text-gray-400" />
+              <div className="bg-white p-3 rounded text-center w-full shadow-sm">
+                3. Agradecer la retroalimentación
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-4 p-4 bg-green-50 text-green-800 rounded border border-green-200 text-sm">
+            <strong>Valor agregado:</strong> Una queja bien resuelta suele fidelizar más a un cliente que un servicio que nunca falló (Paradoja de la recuperación del servicio).
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "14. Cierre del Servicio",
+      icon: <ArrowRight className="w-5 h-5" />,
+      content: (
+        <div className="space-y-6">
+          <h3 className="text-2xl font-bold text-gray-800">Despedida Protocolaria</h3>
+          <p className="text-gray-600">
+            El último momento de la verdad. Debes dejar una impresión duradera positiva.
+          </p>
+
+          <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div className="bg-indigo-600 p-4">
+              <h4 className="text-white font-bold">Checklist de Despedida EC0305</h4>
+            </div>
+            <div className="p-6">
+              <ul className="space-y-4">
+                <li className="flex items-center gap-3">
+                  <input type="checkbox" readOnly checked className="w-5 h-5 text-indigo-600" />
+                  <span className="text-gray-700">¿Preguntó si hay algún otro requerimiento? <em>("¿Algo más en lo que pueda ayudarle?")</em></span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <input type="checkbox" readOnly checked className="w-5 h-5 text-indigo-600" />
+                  <span className="text-gray-700">¿Reiteró su nombre y agradeció la visita/llamada?</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <input type="checkbox" readOnly checked className="w-5 h-5 text-indigo-600" />
+                  <span className="text-gray-700">¿Invitó al cliente a regresar?</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <input type="checkbox" readOnly checked className="w-5 h-5 text-indigo-600" />
+                  <span className="text-gray-700">¿Esperó a que el cliente colgara o se retirara primero?</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "15. Evaluación Final y Glosario",
+      icon: <BookOpen className="w-5 h-5" />,
+      content: (
+        <div className="space-y-6">
+          <h3 className="text-2xl font-bold text-gray-800">Resumen para Examen</h3>
+          <p className="text-gray-600">
+            Conceptos clave que debes memorizar para la certificación.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-blue-50 p-4 rounded border border-blue-200">
+              <h5 className="font-bold text-blue-900">Actitudes</h5>
+              <p className="text-sm text-blue-800 mt-2">Disposición interna. Ej: Amabilidad (trato afectuoso), Tolerancia (respeto a diferencias).</p>
+            </div>
+            <div className="bg-blue-50 p-4 rounded border border-blue-200">
+              <h5 className="font-bold text-blue-900">Conocimientos</h5>
+              <p className="text-sm text-blue-800 mt-2">Información técnica del producto/servicio y políticas de la empresa.</p>
+            </div>
+            <div className="bg-blue-50 p-4 rounded border border-blue-200">
+              <h5 className="font-bold text-blue-900">Desempeños</h5>
+              <p className="text-sm text-blue-800 mt-2">Lo que haces y se puede observar (saludar, mirar a los ojos, limpiar el área).</p>
+            </div>
+          </div>
+
+          <div className="mt-8 text-center">
+            <button 
+              onClick={() => setActivePage(0)}
+              className="bg-indigo-600 text-white px-6 py-3 rounded-full font-bold shadow-lg hover:bg-indigo-700 transition-colors"
+            >
+              Volver al Inicio del Manual
+            </button>
+          </div>
+        </div>
+      )
+    }
+  ];
+
+  function HandshakeIcon(props) {
+    return (
+      <svg
+        {...props}
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="m11 17 2 2a1 1 0 1 0 3-3" />
+        <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 2.85-.92l1.02-2.37a2 2 0 0 0-1.85-2.8 2 2 0 0 0-1.7.94L13 7.8a4 4 0 0 1-1.17 1.62l-4.15 4.15a3 3 0 0 0 0 4.24" />
+        <path d="M11 17a3 3 0 0 1-4.24 0l-3-3a1 1 0 0 1 0-1.42l2.3-2.3a2 2 0 0 1 2.82 0l3.89 3.89" />
+      </svg>
+    )
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 font-sans text-gray-900 flex flex-col md:flex-row">
+      
+      {/* Mobile Header */}
+      <div className="md:hidden bg-indigo-900 text-white p-4 flex justify-between items-center sticky top-0 z-50 shadow-md">
+        <h1 className="font-bold text-lg">Manual EC0305</h1>
+        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          {isMobileMenuOpen ? <X /> : <Menu />}
+        </button>
+      </div>
+
+      {/* Sidebar Navigation */}
+      <aside className={`
+        fixed md:sticky top-0 h-screen w-72 bg-indigo-900 text-gray-100 flex flex-col transition-transform duration-300 z-40 overflow-y-auto
+        ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+      `}>
+        <div className="p-6 border-b border-indigo-800">
+          <h1 className="text-2xl font-bold text-white">Estándar EC0305</h1>
+          <p className="text-indigo-300 text-sm mt-1">Manual de Estudio Universitario</p>
+        </div>
+        
+        <nav className="flex-1 p-4 space-y-1">
+          {pages.map((page, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setActivePage(index);
+                setIsMobileMenuOpen(false);
+              }}
+              className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
+                activePage === index 
+                  ? 'bg-indigo-700 text-white shadow-md' 
+                  : 'text-indigo-200 hover:bg-indigo-800 hover:text-white'
+              }`}
+            >
+              <div className={`${activePage === index ? 'text-white' : 'text-indigo-400'}`}>
+                {page.icon}
+              </div>
+              <span className="text-left">{page.title.split('.')[0]}. {page.title.split('.')[1]}</span>
+            </button>
+          ))}
+        </nav>
+        
+        <div className="p-4 border-t border-indigo-800 text-xs text-indigo-400 text-center">
+          Material de apoyo basado en la ficha técnica CONOCER.
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 p-4 md:p-8 max-w-4xl mx-auto w-full">
+        {/* Progress Bar */}
+        <div className="mb-8">
+          <div className="flex justify-between text-sm text-gray-500 mb-2">
+            <span>Hoja {activePage + 1} de {pages.length}</span>
+            <span>{Math.round(((activePage + 1) / pages.length) * 100)}% Completado</span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2.5">
+            <div 
+              className="bg-indigo-600 h-2.5 rounded-full transition-all duration-500" 
+              style={{ width: `${((activePage + 1) / pages.length) * 100}%` }}
+            ></div>
+          </div>
+        </div>
+
+        {/* Content Card */}
+        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden min-h-[600px]">
+          {/* Card Header */}
+          <div className="bg-indigo-600 p-6 md:p-8 text-white">
+            <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3">
+              {pages[activePage].title}
+            </h2>
+          </div>
+
+          {/* Card Body */}
+          <div className="p-6 md:p-10 leading-relaxed">
+            {pages[activePage].content}
+          </div>
+        </div>
+
+        {/* Navigation Buttons */}
+        <div className="flex justify-between mt-8">
+          <button
+            disabled={activePage === 0}
+            onClick={() => setActivePage(prev => prev - 1)}
+            className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+              activePage === 0 
+                ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
+                : 'bg-white text-indigo-700 border border-indigo-200 hover:bg-indigo-50 shadow-sm'
+            }`}
+          >
+            Anterior
+          </button>
+
+          <button
+            disabled={activePage === pages.length - 1}
+            onClick={() => setActivePage(prev => prev + 1)}
+            className={`px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2 ${
+              activePage === pages.length - 1
+                ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                : 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-md'
+            }`}
+          >
+            Siguiente <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default ManualEC0305;
