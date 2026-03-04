@@ -113,15 +113,11 @@
                     icon: <Home className="w-5 h-5" />,
                     content: (
                         <div className="flex flex-col items-center justify-center h-full text-center space-y-8 fade-in p-4">
-                            <div className="flex flex-col md:flex-row justify-center items-center gap-8">
-                                <div className="bg-white p-4 rounded-xl shadow-md border border-uneve-100 transform hover:scale-105 transition-transform duration-300">
-                                    <img src="1.jpg" alt="Logo CONOCER" className="h-32 object-contain" 
-                                         onError={(e) => {e.target.style.display='none'; e.target.parentElement.innerHTML = '<div class="text-xs text-red-500 font-bold p-4">Falta 1.jpg</div>'}} />
-                                </div>
-                                <div className="bg-white p-4 rounded-xl shadow-md border border-uneve-100 transform hover:scale-105 transition-transform duration-300">
-                                    <img src="2.jpg" alt="Logo UNEVE" className="h-32 object-contain" 
-                                         onError={(e) => {e.target.style.display='none'; e.target.parentElement.innerHTML = '<div class="text-xs text-red-500 font-bold p-4">Falta 2.jpg</div>'}} />
-                                </div>
+                            <div className="flex flex-col md:flex-row justify-center items-center gap-12">
+                                <img src="1.jpg" alt="Logo CONOCER" className="h-32 md:h-40 object-contain transform hover:scale-105 transition-transform duration-300 drop-shadow-md" 
+                                     onError={(e) => {e.target.style.display='none'}} />
+                                <img src="2.jpg" alt="Logo UNEVE" className="h-32 md:h-40 object-contain transform hover:scale-105 transition-transform duration-300 drop-shadow-md" 
+                                     onError={(e) => {e.target.style.display='none'}} />
                             </div>
                             
                             <div className="space-y-3 max-w-2xl">
@@ -557,9 +553,10 @@
                             <div className="bg-white rounded-2xl shadow-xl border border-orange-100 overflow-hidden flex flex-col h-fit max-h-full">
                                 {/* Cabecera de Tarjeta (Ocultar en portada) */}
                                 {activePage !== 0 && (
-                                    <div className="bg-gradient-to-r from-uneve-600 to-uneve-800 p-6 md:p-8 text-white shadow-md relative overflow-hidden shrink-0">
+                                    <div className="bg-gradient-to-r from-uneve-600 to-uneve-800 p-6 md:p-8 text-white shadow-md relative overflow-hidden shrink-0 flex justify-between items-center gap-4">
                                         <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-10 -mt-10"></div>
                                         <h2 className="text-2xl md:text-3xl font-bold flex items-center gap-3 relative z-10">{pages[activePage].title}</h2>
+                                        <img src="2.jpg" alt="Logo UNEVE" className="h-10 md:h-14 object-contain relative z-10 drop-shadow-lg" onError={(e) => e.target.style.display='none'} />
                                     </div>
                                 )}
                                 
